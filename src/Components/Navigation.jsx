@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/crm-logo.png"
+import logo from "../assets/crm-logo.png";
+import { useState } from "react";
 function Navigation() {
-  const navLinkClass = ({isActive}) => {
+  const [openleadBox, setOpenLeadBox] = useState(false);
+  const navLinkClass = ({ isActive }) => {
     return `font-inter px-5 py-2 rounded-2xl cursor-pointer duration-200 transition 
     ${
       isActive
@@ -15,8 +17,12 @@ function Navigation() {
       <div className="bg-card py-3 outline-0">
         <div className="mx-8 flex items-center justify-between">
           <div className="flex items-center ">
-            <img src={logo} alt="pipeline-logo" className="
-            w-25 -mb-3"/>
+            <img
+              src={logo}
+              alt="pipeline-logo"
+              className="
+            w-25 -mb-3"
+            />
             <h1 className="font-inter text-2xl font-semibold -ml-6">
               pipeline<span className="text-primary font-inter">CRM</span>
             </h1>
@@ -36,12 +42,22 @@ function Navigation() {
             </NavLink>
           </ul>
 
-          <div>
+          <div onClick={() => setOpenLeadBox(true)}>
             <button className="px-3 py-1 rounded-lg bg-primary text-card font-inter capitalize cursor-pointer hover:bg-primary/10 hover:text-primary duration-300 transition-color">
               +add lead
             </button>
           </div>
         </div>
+      </div>
+
+      {/* add lead */}
+
+      <div>
+        {openleadBox && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white p-8 rounded-3xl w-full max-w-lg shadow-2xl"></div>
+          </div>
+        )}
       </div>
     </>
   );
