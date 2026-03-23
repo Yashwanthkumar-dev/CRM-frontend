@@ -20,6 +20,7 @@ import {
   PenLine,
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import toast from "react-hot-toast";
 
 const DashBoardHomePage = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -60,13 +61,14 @@ const DashBoardHomePage = () => {
     if (window.confirm("Are you sure you want to delete this customer?")) {
       try {
         await deleteSingleCustomer(id);
+        toast.success("deleted successfully");
         setCustomerData((prev) => prev.filter((c) => c.id !== id));
       } catch (error) {
         console.error("Delete Error:", error);
+        toast.error("not deleted!!");
       }
     }
   };
-  console.log(customerData.email);
 
   // ---  Search Logic ---
   const filteredCustomers = customerData.filter((customer) => {
@@ -89,6 +91,7 @@ const DashBoardHomePage = () => {
       workbook,
       `CRM_Report_${new Date().toISOString().split("T")[0]}.xlsx`,
     );
+    toast.success("sucessfully exported in excel format");
   };
 
   const targetLead = 200;
@@ -134,12 +137,12 @@ const DashBoardHomePage = () => {
     e.preventDefault();
     try {
       await updateCustomerDetails(selectedId, updateData);
-      alert("customer was updated");
+      toast.success("customer was updated");
       setIsOpen(false);
       fetchData();
     } catch (error) {
       console.log("system error :", error);
-      alert("can't update customer details");
+      toast.error("can't update customer details");
     }
   };
 
