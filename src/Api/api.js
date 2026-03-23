@@ -66,10 +66,59 @@ export const viewAllLead = async () => {
   }
 };
 
-export const createLead = async () => {
+export const createLead = async (addLead) => {
   try {
-    const response = await axios.post(`${leadUrl}/addLead`);
+    const response = await axios.post(`${leadUrl}/addLead`, addLead);
     console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteSingleLead = async (id) => {
+  try {
+    const response = await axios.delete(`${leadUrl}/deleteSingleLead/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateFollowUps = async (id, status) => {
+  try {
+    const response = await axios.patch(`${leadUrl}/updateStatus/${id}`, null, {
+      params: {
+        status: status,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const convertConversion = async (id) => {
+  try {
+    const response = await axios.post(`${leadUrl}/convert/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+// Unga Axios file-la add pannu macha
+export const viewLeadActivities = async (id) => {
+  try {
+    const response = await axios.get(`${leadUrl}/${id}`); // /leads/{id}
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createActivity = async (leadId, activityData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/activity/${leadId}`, activityData);
     return response.data;
   } catch (error) {
     throw error;

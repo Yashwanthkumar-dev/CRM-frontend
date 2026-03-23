@@ -185,7 +185,7 @@ const DashBoardHomePage = () => {
 
       <div className="flex flex-col lg:flex-row gap-8 px-8 mt-10">
         {/* 2. RECENT ACTIVITY */}
-        <div className="bg-white p-8 rounded-4xl border border-gray-100 shadow-sm flex-[1.4]">
+        <div className="bg-white p-8 rounded-4xl border border-gray-100 shadow-sm flex-[1.4] overflow-y-scroll h-100">
           <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-8 uppercase tracking-tight">
             <Activity className="text-blue-500" size={22} /> Recent Activity
           </h2>
@@ -218,7 +218,7 @@ const DashBoardHomePage = () => {
         </div>
 
         {/* 3. SOURCE ANALYTICS (Donut Chart) */}
-        <div className="bg-white p-8 rounded-4xl border border-gray-100 shadow-sm flex-1">
+        <div className="bg-white p-8 rounded-4xl border border-gray-100 shadow-sm flex-1 overflow-y-scroll h-100">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-slate-800 uppercase tracking-tight font-inter">
               Source Analytics
