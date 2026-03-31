@@ -1,9 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/crm-logo.png";
+import logo from "../../assets/crm-logo.png";
 import { useState } from "react";
-import { createLead } from "../Api/api";
 import { FastForward, X, Plus } from "lucide-react";
 import toast from "react-hot-toast";
+import { createLead } from "../../Api/api";
 
 function Navigation() {
   const [openleadBox, setOpenLeadBox] = useState(false);

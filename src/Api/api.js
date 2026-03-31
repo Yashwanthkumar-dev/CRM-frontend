@@ -4,6 +4,7 @@ const BASE_URL = "http://localhost:8081";
 const dashboardUrl = `${BASE_URL}/dashboardStatus`;
 const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
+const leadActivityUrl = `${BASE_URL}/viewLeadActivitiesById`
 
 // dashboard url
 
@@ -118,7 +119,67 @@ export const viewLeadActivities = async (id) => {
 
 export const createActivity = async (leadId, activityData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/activity/${leadId}`, activityData);
+    const response = await axios.post(
+      `${BASE_URL}/activity/${leadId}`,
+      activityData,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateTime = async (leadId, timeString) => {
+  try {
+    const response = await axios.patch(
+      `${leadUrl}/updateNextTime/${leadId}`,
+      null,
+      {
+        params: {
+          time: timeString,
+        },
+      },
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const leadsAnalytics = async () => {
+  try {
+    const response = await axios.get(`${leadUrl}/leadsAnalytics`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const convertion = async (id) => {
+  try {
+    const response = await axios.post(`${leadUrl}/convert/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateStatusApi = async (id, updateStatus) => {
+  try {
+    const response = await axios.patch(`${leadUrl}/updateStatus/${id}`, null, {
+      params: {
+        status: updateStatus,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const viewLeadActivitiesById = async (id) => {
+  try {
+    const response = await axios.get(`${leadActivityUrl}/${id}`)
     return response.data;
   } catch (error) {
     throw error;
