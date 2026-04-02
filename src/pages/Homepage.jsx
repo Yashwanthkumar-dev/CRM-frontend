@@ -24,6 +24,7 @@ import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa6";
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import { BsGraphUpArrow } from "react-icons/bs";
 
 function Homepage() {
   // --- 1. STATE MANAGEMENT ---
@@ -32,6 +33,7 @@ function Homepage() {
     totalLeads: 0,
     activeLead: 0,
     todayFollows: 0,
+    leadPercentage: 0.0,
   });
   const [searchFilter, setSearchFilter] = useState("");
 
@@ -98,7 +100,7 @@ function Homepage() {
         ? leads.filter((l) => l.nextFollowDate === todayDate)
         : leads;
 
-  // --- 4. ACTION HANDLERS (Fixed Bug) ---
+  // --- 4. ACTION HANDLERS  ---
   const handleUpdateDate = async (e) => {
     e.preventDefault();
     if (!nextDate) return toast.error("Select a date");
@@ -166,7 +168,7 @@ function Homepage() {
     <div className="bg-[#f8fafc] min-h-screen pt-28 pb-10 px-4 md:px-10 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Simple & Clean Analytics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
           <div className="bg-white p-6 rounded-2xl shadow-sm flex items-center gap-5 border border-slate-100">
             <div className="bg-indigo-50 p-4 rounded-xl text-indigo-600">
               <Users size={24} />
@@ -202,10 +204,28 @@ function Homepage() {
               </p>
             </div>
           </div>
+
+          <div className="bg-white p-6 rounded-2xl shadow-sm flex items-center gap-5 border border-slate-100">
+            <div className="p-2 rounded-lg bg-green-100/60">
+              <BsGraphUpArrow size={24} className="text-green-800"/>
+            </div>
+            <div>
+          
+              <p className="text-slate-500 text-sm font-medium capitalize">
+                lead rate
+              </p>
+              <p className="text-2xl font-bold text-slate-800">
+                {card.leadPercentage || 0.0} %
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* garph bar */}
-        <div className="h-87.5 w-full bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-10">
+        <div className="h-125 w-full bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-10">
+          <h1 className="text-xl text-gray-600 ml-3  text-center font-inter  capitalize mb-12">
+            lead source analytics
+          </h1>
           <ResponsiveContainer width="100%" height="90%">
             <BarChart data={leadSource}>
               <XAxis
