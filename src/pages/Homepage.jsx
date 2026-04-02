@@ -6,6 +6,7 @@ import {
   updateTime,
   viewAllLead,
   updateStatusApi,
+  fetchSourceDataApi,
 } from "../Api/api";
 import {
   Clock7,
@@ -22,6 +23,7 @@ import {
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa6";
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 function Homepage() {
   // --- 1. STATE MANAGEMENT ---
@@ -43,7 +45,25 @@ function Homepage() {
 
   const todayDate = new Date().toISOString().split("T")[0];
 
+  const [leadSource, setLeadSource] = useState([]);
+
   // --- 2. FETCH DATA ---
+  const fetchSourceData = async () => {
+    try {
+      const response = await fetchSourceDataApi();
+      if (Array.isArray(response)) {
+        setLeadSource(response);
+      } else if (response && Array.isArray(response.data)) {
+        setLeadSource(response.data);
+      } else {
+        setLeadSource([]);
+      }
+    } catch (error) {
+      toast.error("failed to fetch source data");
+      console.log("system error", error);
+    }
+  };
+
   const fetchData = async () => {
     try {
       const [leadRes, analyticsRes] = await Promise.all([
@@ -57,8 +77,10 @@ function Homepage() {
     }
   };
 
+  // inital fetching
   useEffect(() => {
     fetchData();
+    fetchSourceData();
   }, []);
 
   // --- 3. FILTER LOGIC ---
@@ -137,7 +159,7 @@ function Homepage() {
   const WhatAppHandler = (number) => {
     const whatAppWelcomeMessage = "Thanks to get interest in my product";
     const whatAppUrl = `https://api.whatsapp.com/send?phone=${number}`;
-    window.open(whatAppUrl,'_blank')
+    window.open(whatAppUrl, "_blank");
   };
 
   return (
@@ -180,6 +202,34 @@ function Homepage() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* garph bar */}
+        <div className="h-87.5 w-full bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-10">
+          <ResponsiveContainer width="100%" height="90%">
+            <BarChart data={leadSource}>
+              <XAxis
+                dataKey="source"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#94a3b8", fontSize: 12 }}
+              />
+              <Tooltip
+                cursor={{ fill: "#f8fafc" }}
+                contentStyle={{
+                  borderRadius: "12px",
+                  border: "none",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                }}
+              />
+              <Bar
+                dataKey="count"
+                fill="#6366f1"
+                radius={[6, 6, 0, 0]}
+                barSize={40}
+              />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         {/* Lead Management Card */}

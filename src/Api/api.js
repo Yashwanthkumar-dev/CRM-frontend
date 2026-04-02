@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:8081";
 const dashboardUrl = `${BASE_URL}/dashboardStatus`;
 const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
-const leadActivityUrl = `${BASE_URL}/viewLeadActivitiesById`
+const leadActivityUrl = `${BASE_URL}/viewLeadActivitiesById`;
 
 // dashboard url
 
@@ -179,8 +179,17 @@ export const updateStatusApi = async (id, updateStatus) => {
 
 export const viewLeadActivitiesById = async (id) => {
   try {
-    const response = await axios.get(`${leadActivityUrl}/${id}`)
+    const response = await axios.get(`${leadActivityUrl}/${id}`);
     return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchSourceDataApi = async () => {
+  try {
+    const response = await axios.get(`${leadUrl}/leadSource`);
+    return response;
   } catch (error) {
     throw error;
   }
