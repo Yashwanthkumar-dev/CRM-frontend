@@ -25,6 +25,7 @@ import { NavLink } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa6";
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { BsGraphUpArrow } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
 
 function Homepage() {
   // --- 1. STATE MANAGEMENT ---
@@ -157,11 +158,16 @@ function Homepage() {
     }
   };
 
-  // --5. what appp connection ---
+  // --5. what app connection ---
   const WhatAppHandler = (number) => {
-    const whatAppWelcomeMessage = "Thanks to get interest in my product";
     const whatAppUrl = `https://api.whatsapp.com/send?phone=${number}`;
     window.open(whatAppUrl, "_blank");
+  };
+
+  //  --- email connectio ---
+  const emailHander = (email) => {
+    const mail = `mailto:${email}`;
+    window.location.href = mail;
   };
 
   return (
@@ -207,10 +213,9 @@ function Homepage() {
 
           <div className="bg-white p-6 rounded-2xl shadow-sm flex items-center gap-5 border border-slate-100">
             <div className="p-2 rounded-lg bg-green-100/60">
-              <BsGraphUpArrow size={24} className="text-green-800"/>
+              <BsGraphUpArrow size={24} className="text-green-800" />
             </div>
             <div>
-          
               <p className="text-slate-500 text-sm font-medium capitalize">
                 lead rate
               </p>
@@ -373,11 +378,18 @@ function Homepage() {
                           <CheckCircle2 size={14} /> Convert
                         </button>
                       </td>
-                      <td>
+                      <td className="flex flex-col   items-center  p-5 gap-2 ">
                         <i onClick={() => WhatAppHandler(data.number)}>
                           <FaWhatsapp
                             size={20}
                             className=" w-full text-green-600"
+                          />
+                        </i>
+                        <i>
+                          <MdEmail
+                            size={20}
+                            className=" w-full  text-red-500"
+                            onClick={() => emailHander(data.email)}
                           />
                         </i>
                       </td>

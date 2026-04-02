@@ -188,7 +188,12 @@ export const viewLeadActivitiesById = async (id) => {
 
 export const fetchSourceDataApi = async () => {
   try {
-    const response = await axios.get(`${leadUrl}/leadSource`);
+    const response = await fetch(`${leadUrl}/leadSource`);
+    if (!response.ok) {
+      throw new Error(`Http error ! , status ${response.status}`);
+    }
+    const data = response.json();
+    return data;
     return response;
   } catch (error) {
     throw error;
