@@ -1,11 +1,17 @@
 import { User, UserCog } from "lucide-react";
 import icon from "../../assets/crm-logo.png";
 import { useState } from "react";
-// ❌ Indha line-ah thookidu: import { div } from "framer-motion/client"; 
+// ❌ Indha line-ah thookidu: import { div } from "framer-motion/client";
 import toast from "react-hot-toast";
 import { createLead } from "../../Api/api";
+import { useLocation } from "react-router-dom";
 
 function Navigation() {
+  const location = useLocation();
+  if (location.pathname.startsWith("/admin")) {
+    return null;
+  }
+
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -31,11 +37,19 @@ function Navigation() {
       console.log("Sending Data:", data); // Check panna
       await createLead(data);
       toast.success("Lead added successfully");
-      
+
       // ✅ Form reset & Modal close
-      setData({ name: "", email: "", followUps: "", phone: "", location: "", company: "", source: "Direct" });
+      setData({
+        name: "",
+        email: "",
+        followUps: "",
+        phone: "",
+        location: "",
+        company: "",
+        source: "Direct",
+      });
       setOpen(false);
-      
+
       // Custom event trigger (Homepage refresh aaga)
       window.dispatchEvent(new Event("leadAdded"));
     } catch (error) {
@@ -74,14 +88,19 @@ function Navigation() {
                 create lead
               </h1>
 
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <form
+                onSubmit={handleSubmit}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
                 {/* Name */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Name</label>
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
-                    value={data.name} // ✅ State-oda bind pannu macha
+                    value={data.name} 
                     onChange={handleChanges}
                     className="border px-3 py-2 rounded-lg border-gray-300 outline-primary"
                     placeholder="example: ramanaa"
@@ -91,7 +110,9 @@ function Navigation() {
 
                 {/* Email */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Email</label>
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
@@ -105,7 +126,9 @@ function Navigation() {
 
                 {/* Phone */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Phone</label>
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Phone
+                  </label>
                   <input
                     type="text"
                     name="phone"
@@ -118,7 +141,9 @@ function Navigation() {
 
                 {/* Company */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Company</label>
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Company
+                  </label>
                   <input
                     type="text"
                     name="company"
@@ -131,10 +156,12 @@ function Navigation() {
 
                 {/* Source - Managed as Select for better UX */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Source</label>
-                  <select 
-                    name="source" 
-                    value={data.source} 
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Source
+                  </label>
+                  <select
+                    name="source"
+                    value={data.source}
                     onChange={handleChanges}
                     className="border px-3 py-2 rounded-lg border-gray-300 outline-primary bg-white"
                   >
@@ -148,7 +175,9 @@ function Navigation() {
 
                 {/* Status */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Status</label>
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Status
+                  </label>
                   <input
                     type="text"
                     name="followUps"
@@ -161,7 +190,9 @@ function Navigation() {
 
                 {/* Location */}
                 <div className="flex flex-col gap-1 md:col-span-2">
-                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">Location</label>
+                  <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
+                    Location
+                  </label>
                   <input
                     type="text"
                     name="location"
@@ -180,7 +211,7 @@ function Navigation() {
                   >
                     Cancel
                   </button>
-                  <button 
+                  <button
                     type="submit"
                     className="text-md capitalize text-white bg-green-600 px-6 py-1.5 rounded-lg hover:bg-green-700 transition-all cursor-pointer"
                   >

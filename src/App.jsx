@@ -7,22 +7,48 @@ import Homepage from "./pages/Homepage";
 import MainLayout from "./MainLayout";
 import Navigation from "./Components/workspace/Navigation";
 import LeadActivity from "./pages/LeadActivity";
+import LoginPage from "./pages/LoginPage";
+import SignInPage from "./pages/SignInPage";
+import ProductedRoute from "./Components/Dashboard/ProductedRoute";
 
 function App() {
   return (
     <>
       <Toaster position="top-right" />
-      <Navigation/>
+
       <Routes>
         {/* employee navigation  */}
-        <Route path="/" element={<Homepage />} />
-        <Route path="/activity/:id" element={<LeadActivity/>} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signUp" element={<SignInPage />} />
+        <Route
+          path="/homepage"
+          element={
+            <>
+              <Navigation />
+              <Homepage />
+            </>
+          }
+        />
+        <Route
+          path="/activity/:id"
+          element={
+            <>
+              <Navigation />
+              <LeadActivity />
+            </>
+          }
+        />
 
         {/* manager dashboard with navigation */}
-        <Route path="/admin" element={<MainLayout />}>
-          <Route index element={<DashBoardHomePage />} />
-          <Route path="leadPage" element={<LeadPage />} />
-          <Route path="customer-activities/:id" element={<ActivitiesPage />} />
+        <Route element={<ProductedRoute allowRole="ADMIN" />}>
+          <Route path="/admin" element={<MainLayout />}>
+            <Route index element={<DashBoardHomePage />} />
+            <Route path="leadPage" element={<LeadPage />} />
+            <Route
+              path="customer-activities/:id"
+              element={<ActivitiesPage />}
+            />
+          </Route>
         </Route>
       </Routes>
     </>

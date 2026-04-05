@@ -73,16 +73,15 @@ function Navigation() {
           </div>
 
           <ul className="flex items-center gap-2 outline-0">
-            <NavLink to="/" className={navLinkClass}>
+            <NavLink to="/admin" className={navLinkClass}>
               dashboard
             </NavLink>
 
-            <NavLink to="/leadPage" className={navLinkClass}>
+            <NavLink to="leadPage" className={navLinkClass}>
               lead
             </NavLink>
             
-            {/* Note: Customer Activities remove panniyaachu macha. 
-                Idhu LeadPage list-la irundhu specific ID-oda dhaan poganum. */}
+            
           </ul>
 
           <div>

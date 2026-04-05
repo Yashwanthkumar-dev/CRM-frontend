@@ -6,11 +6,22 @@ const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
 const leadActivityUrl = `${BASE_URL}/viewLeadActivitiesById`;
 
+//  -- global token getting --
+
+const globalToken = () => {
+  const token = localStorage.getItem("token");
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
+
 // dashboard url
 
 export const dashboardAnalytics = async () => {
   try {
-    const respone = await axios.get(dashboardUrl);
+    const respone = await axios.get(dashboardUrl, globalToken());
     return respone.data;
   } catch (error) {
     throw error;
@@ -19,7 +30,10 @@ export const dashboardAnalytics = async () => {
 
 export const viewAllCustomerDetails = async () => {
   try {
-    const response = await axios.get(`${customerUrl}/viewAllCustomer`);
+    const response = await axios.get(
+      `${customerUrl}/viewAllCustomer`,
+      globalToken(),
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -29,6 +43,7 @@ export const deleteSingleCustomer = async (id) => {
   try {
     const response = await axios.delete(
       `${customerUrl}/deleteSingleCustomerById/${id}`,
+      globalToken(),
     );
     return response.data;
   } catch (error) {
@@ -38,7 +53,10 @@ export const deleteSingleCustomer = async (id) => {
 
 export const leadSourceAnalytics = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/leadSourceAnalytics`);
+    const response = await axios.get(
+      `${BASE_URL}/leadSourceAnalytics`,
+      globalToken(),
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -50,6 +68,7 @@ export const updateCustomerDetails = async (id, updateCustomer) => {
     const response = await axios.put(
       `${customerUrl}/updateSingleCustomerAllDetails/${id}`,
       updateCustomer,
+      globalToken(),
     );
     return response.data;
   } catch (error) {
@@ -59,7 +78,7 @@ export const updateCustomerDetails = async (id, updateCustomer) => {
 
 export const viewAllLead = async () => {
   try {
-    const respone = await axios.get(`${leadUrl}/viewLeads`);
+    const respone = await axios.get(`${leadUrl}/viewLeads`, globalToken());
     console.log(respone.data);
     return respone.data;
   } catch (error) {
@@ -69,7 +88,11 @@ export const viewAllLead = async () => {
 
 export const createLead = async (addLead) => {
   try {
-    const response = await axios.post(`${leadUrl}/addLead`, addLead);
+    const response = await axios.post(
+      `${leadUrl}/addLead`,
+      addLead,
+      globalToken(),
+    );
     console.log(response.data);
     return response.data;
   } catch (error) {
@@ -79,7 +102,10 @@ export const createLead = async (addLead) => {
 
 export const deleteSingleLead = async (id) => {
   try {
-    const response = await axios.delete(`${leadUrl}/deleteSingleLead/${id}`);
+    const response = await axios.delete(
+      `${leadUrl}/deleteSingleLead/${id},`,
+      globalToken()
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -89,6 +115,7 @@ export const deleteSingleLead = async (id) => {
 export const updateFollowUps = async (id, status) => {
   try {
     const response = await axios.patch(`${leadUrl}/updateStatus/${id}`, null, {
+      ...globalToken(),
       params: {
         status: status,
       },
@@ -101,7 +128,10 @@ export const updateFollowUps = async (id, status) => {
 
 export const convertConversion = async (id) => {
   try {
-    const response = await axios.post(`${leadUrl}/convert/${id}`);
+    const response = await axios.post(
+      `${leadUrl}/convert/${id}`,
+      globalToken(),
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -110,7 +140,7 @@ export const convertConversion = async (id) => {
 // Unga Axios file-la add pannu macha
 export const viewLeadActivities = async (id) => {
   try {
-    const response = await axios.get(`${leadUrl}/${id}`); // /leads/{id}
+    const response = await axios.get(`${leadUrl}/${id}`, globalToken()); // /leads/{id}
     return response.data;
   } catch (error) {
     throw error;
@@ -122,6 +152,7 @@ export const createActivity = async (leadId, activityData) => {
     const response = await axios.post(
       `${BASE_URL}/activity/${leadId}`,
       activityData,
+      globalToken(),
     );
     return response.data;
   } catch (error) {
@@ -135,6 +166,7 @@ export const updateTime = async (leadId, timeString) => {
       `${leadUrl}/updateNextTime/${leadId}`,
       null,
       {
+        ...globalToken(),
         params: {
           time: timeString,
         },
@@ -147,7 +179,10 @@ export const updateTime = async (leadId, timeString) => {
 
 export const leadsAnalytics = async () => {
   try {
-    const response = await axios.get(`${leadUrl}/leadsAnalytics`);
+    const response = await axios.get(
+      `${leadUrl}/leadsAnalytics`,
+      globalToken(),
+    );
     console.log(response);
     return response.data;
   } catch (error) {
@@ -157,7 +192,10 @@ export const leadsAnalytics = async () => {
 
 export const convertion = async (id) => {
   try {
-    const response = await axios.post(`${leadUrl}/convert/${id}`);
+    const response = await axios.post(
+      `${leadUrl}/convert/${id}`,
+      globalToken(),
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -167,6 +205,7 @@ export const convertion = async (id) => {
 export const updateStatusApi = async (id, updateStatus) => {
   try {
     const response = await axios.patch(`${leadUrl}/updateStatus/${id}`, null, {
+      ...globalToken(),
       params: {
         status: updateStatus,
       },
@@ -179,7 +218,7 @@ export const updateStatusApi = async (id, updateStatus) => {
 
 export const viewLeadActivitiesById = async (id) => {
   try {
-    const response = await axios.get(`${leadActivityUrl}/${id}`);
+    const response = await axios.get(`${leadActivityUrl}/${id}`, globalToken());
     return response.data;
   } catch (error) {
     throw error;
@@ -188,13 +227,37 @@ export const viewLeadActivitiesById = async (id) => {
 
 export const fetchSourceDataApi = async () => {
   try {
-    const response = await fetch(`${leadUrl}/leadSource`);
-    if (!response.ok) {
-      throw new Error(`Http error ! , status ${response.status}`);
+    const response = await axios.get(`${leadUrl}/leadSource`, globalToken());
+  
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//  ---- login api ----
+
+export const loginApi = async (loginData) => {
+  try {
+    const respone = await axios.post(`${BASE_URL}/login`, loginData);
+    if (respone.data) {
+      localStorage.setItem("token", respone.data.token);
+      localStorage.setItem("role", respone.data.role);
     }
-    const data = response.json();
-    return data;
-    return response;
+    return respone.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//  ---- registration api ----
+
+export const registrationApi = async (registerData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/register`, registerData);
+    if (response.ok) {
+      return response.data;
+    }
   } catch (error) {
     throw error;
   }
