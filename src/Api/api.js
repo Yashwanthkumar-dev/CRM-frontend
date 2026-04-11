@@ -1,7 +1,7 @@
 import axios from "axios";
 import { param } from "framer-motion/client";
 
-const BASE_URL = "https://yash-crm-backend.loca.lt";
+const BASE_URL = "https://premium-superior-deem.ngrok-free.dev";
 const dashboardUrl = `${BASE_URL}/dashboardStatus`;
 const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
@@ -16,7 +16,7 @@ const globalToken = () => {
   return {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Bypass-Tunnel-Reminder": "true",
+      "ngrok-skip-browser-warning": "true",
     },
   };
 };
@@ -144,7 +144,7 @@ export const convertConversion = async (id) => {
 };
 export const viewLeadActivities = async (id) => {
   try {
-    const response = await axios.get(`${leadUrl}/${id}`, globalToken()); // /leads/{id}
+    const response = await axios.get(`${leadUrl}/${id}`, globalToken());
     return response.data;
   } catch (error) {
     throw error;
@@ -245,7 +245,7 @@ export const loginApi = async (loginData) => {
   try {
     const respone = await axios.post(`${BASE_URL}/login`, loginData, {
       headers: {
-        "Bypass-Tunnel-Reminder": "true",
+        "ngrok-skip-browser-warning": "true",
       },
     });
     if (respone.data) {
@@ -264,7 +264,7 @@ export const registrationApi = async (registerData) => {
   try {
     const response = await axios.post(`${BASE_URL}/register`, registerData, {
       headers: {
-        "Bypass-Tunnel-Reminder": "true",
+        "ngrok-skip-browser-warning": "true",
       },
     });
     if (response.ok) {
