@@ -1,7 +1,7 @@
 import axios from "axios";
 import { param } from "framer-motion/client";
 
-const BASE_URL = "https://premium-superior-deem.ngrok-free.dev";
+const BASE_URL = "https://crm-backend-56ad.onrender.com";
 const dashboardUrl = `${BASE_URL}/dashboardStatus`;
 const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
@@ -16,7 +16,6 @@ const globalToken = () => {
   return {
     headers: {
       Authorization: `Bearer ${token}`,
-      "ngrok-skip-browser-warning": "true",
     },
   };
 };
@@ -243,11 +242,7 @@ export const fetchSourceDataApi = async () => {
 
 export const loginApi = async (loginData) => {
   try {
-    const respone = await axios.post(`${BASE_URL}/login`, loginData, {
-      headers: {
-        "ngrok-skip-browser-warning": "true",
-      },
-    });
+    const respone = await axios.post(`${BASE_URL}/login`, loginData);
     if (respone.data) {
       localStorage.setItem("token", respone.data.token);
       localStorage.setItem("role", respone.data.role);
@@ -262,11 +257,7 @@ export const loginApi = async (loginData) => {
 
 export const registrationApi = async (registerData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/register`, registerData, {
-      headers: {
-        "ngrok-skip-browser-warning": "true",
-      },
-    });
+    const response = await axios.post(`${BASE_URL}/register`, registerData);
     if (response.ok) {
       return response.data;
     }
