@@ -10,6 +10,8 @@ import LeadActivity from "./pages/LeadActivity";
 import LoginPage from "./pages/LoginPage";
 import SignInPage from "./pages/SignInPage";
 import ProductedRoute from "./Components/Dashboard/ProductedRoute";
+import EmployeeProfile from "./pages/EmployeeProfile";
+import EmployeePage from "./Dashboard/EmployeePage";
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
             </>
           }
         />
+        <Route path="/employee-profile" element={<EmployeeProfile />} />
 
         {/* manager dashboard with navigation */}
         <Route element={<ProductedRoute allowRole="ADMIN" />}>
@@ -48,6 +51,10 @@ function App() {
               path="customer-activities/:id"
               element={<ActivitiesPage />}
             />
+            <Route 
+            path="Employees" 
+            element ={<EmployeePage/>}
+               />
           </Route>
         </Route>
       </Routes>

@@ -86,7 +86,7 @@ function LeadPage() {
 
         {/* Table Section */}
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[1200px] table-fixed text-left border-collapse">
+          <table className="w-full min-w-300 table-fixed text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/50 border-b border-slate-100 capitalize text-slate-400 text-[10px] font-black tracking-widest">
                 <th className="w-[15%] px-10 py-6">Lead Info</th>
@@ -94,7 +94,7 @@ function LeadPage() {
                 <th className="w-[10%] px-6 py-6 text-center">Status</th>
                 <th className="w-[12%] px-6 py-6">Company</th>
                 <th className="w-[10%] px-6 py-6">Source</th>
-                <th className="w-[10%] px-6 py-6 text-center">Timeline</th> {/* 💡 New Column */}
+                <th className="w-[10%] px-6 py-6 text-center">Timeline</th> 
                 <th className="w-[12%] px-6 py-6 text-center">Actions</th>
                 <th className="w-[13%] px-6 py-6 text-center">Transfer</th>
               </tr>
@@ -133,7 +133,7 @@ function LeadPage() {
                     {/* 💡 Timeline Column - This links to your new page */}
                     <td className="px-6 py-5 text-center">
                       <button 
-                        onClick={() => navigate(`/customer-activities/${data.id}`)}
+                        onClick={() => navigate(`/admin/customer-activities/${data.id}`)}
                         className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:bg-blue-600 hover:text-white transition-all cursor-pointer group-hover:scale-110 active:scale-90"
                         title="View Activities"
                       >

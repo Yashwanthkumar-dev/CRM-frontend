@@ -1,10 +1,9 @@
 import { User, UserCog } from "lucide-react";
 import icon from "../../assets/crm-logo.png";
 import { useState } from "react";
-// ❌ Indha line-ah thookidu: import { div } from "framer-motion/client";
 import toast from "react-hot-toast";
 import { createLead } from "../../Api/api";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 function Navigation() {
   const location = useLocation();
@@ -34,11 +33,11 @@ function Navigation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Sending Data:", data); // Check panna
+      console.log("Sending Data:", data);
       await createLead(data);
       toast.success("Lead added successfully");
 
-      // ✅ Form reset & Modal close
+     
       setData({
         name: "",
         email: "",
@@ -50,7 +49,7 @@ function Navigation() {
       });
       setOpen(false);
 
-      // Custom event trigger (Homepage refresh aaga)
+    
       window.dispatchEvent(new Event("leadAdded"));
     } catch (error) {
       toast.error("Process Failed! please try again");
@@ -58,6 +57,7 @@ function Navigation() {
     }
   };
 
+  const navigate = useNavigate();
   return (
     <>
       <div className="bg-white py-2 shadow-md">
@@ -68,16 +68,23 @@ function Navigation() {
               pipeline<span className="text-primary">CRM</span>
             </h1>
           </div>
+          <div className="flex items-center gap-7">
+            <div onClick={() => setOpen(true)}>
+              <button className="text-primary font-inter border border-primary capitalize hover:bg-primary hover:text-white hover:border-transparent cursor-pointer px-4 py-1 duration-300 transition-colors rounded-lg font-semibold">
+                add lead
+              </button>
+            </div>
 
-          <div onClick={() => setOpen(true)}>
-            <button className="text-primary font-inter border border-primary capitalize hover:bg-primary hover:text-white hover:border-transparent cursor-pointer px-4 py-1 duration-300 transition-colors rounded-lg font-semibold">
-              add lead
-            </button>
+            <div>
+              <h1 onClick={()=> navigate("/employee-activities")} className="text-primary font-inter border border-primary capitalize hover:bg-primary hover:text-white hover:border-transparent cursor-pointer px-4 py-1 duration-300 transition-colors rounded-lg font-semibold">Activities</h1>
+            </div>
           </div>
 
-          <div className="mr-10 p-4 bg-gray-900/10 rounded-md cursor-pointer">
-            <UserCog size={23} className="text-primary" />
-          </div>
+          <NavLink to="/employee-profile">
+            <div className="mr-10 p-4 bg-gray-900/10 rounded-md cursor-pointer">
+              <UserCog size={23} className="text-primary" />
+            </div>
+          </NavLink>
         </div>
 
         {/* --- Add Lead Modal --- */}
@@ -100,7 +107,7 @@ function Navigation() {
                   <input
                     type="text"
                     name="name"
-                    value={data.name} 
+                    value={data.name}
                     onChange={handleChanges}
                     className="border px-3 py-2 rounded-lg border-gray-300 outline-primary"
                     placeholder="example: ramanaa"

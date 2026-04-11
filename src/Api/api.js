@@ -1,18 +1,22 @@
 import axios from "axios";
+import { param } from "framer-motion/client";
 
-const BASE_URL = "http://localhost:8081";
+const BASE_URL = " https://yash-crm-backend.loca.lt";
 const dashboardUrl = `${BASE_URL}/dashboardStatus`;
 const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
 const leadActivityUrl = `${BASE_URL}/viewLeadActivitiesById`;
-
+const employeeUrl = `${BASE_URL}/employee`;
 //  -- global token getting --
 
 const globalToken = () => {
   const token = localStorage.getItem("token");
+  console.log("Token", token);
+
   return {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Bypass-Tunnel-Reminder": "true",
     },
   };
 };
@@ -103,8 +107,8 @@ export const createLead = async (addLead) => {
 export const deleteSingleLead = async (id) => {
   try {
     const response = await axios.delete(
-      `${leadUrl}/deleteSingleLead/${id},`,
-      globalToken()
+      `${leadUrl}/deleteSingleLead/${id}`,
+      globalToken(),
     );
     return response.data;
   } catch (error) {
@@ -130,6 +134,7 @@ export const convertConversion = async (id) => {
   try {
     const response = await axios.post(
       `${leadUrl}/convert/${id}`,
+      null,
       globalToken(),
     );
     return response.data;
@@ -137,7 +142,6 @@ export const convertConversion = async (id) => {
     throw error;
   }
 };
-// Unga Axios file-la add pannu macha
 export const viewLeadActivities = async (id) => {
   try {
     const response = await axios.get(`${leadUrl}/${id}`, globalToken()); // /leads/{id}
@@ -228,7 +232,7 @@ export const viewLeadActivitiesById = async (id) => {
 export const fetchSourceDataApi = async () => {
   try {
     const response = await axios.get(`${leadUrl}/leadSource`, globalToken());
-  
+
     return response.data;
   } catch (error) {
     throw error;
@@ -239,7 +243,11 @@ export const fetchSourceDataApi = async () => {
 
 export const loginApi = async (loginData) => {
   try {
-    const respone = await axios.post(`${BASE_URL}/login`, loginData);
+    const respone = await axios.post(`${BASE_URL}/login`, loginData, {
+      headers: {
+        "Bypass-Tunnel-Reminder": "true",
+      },
+    });
     if (respone.data) {
       localStorage.setItem("token", respone.data.token);
       localStorage.setItem("role", respone.data.role);
@@ -254,11 +262,105 @@ export const loginApi = async (loginData) => {
 
 export const registrationApi = async (registerData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/register`, registerData);
+    const response = await axios.post(`${BASE_URL}/register`, registerData, {
+      headers: {
+        "Bypass-Tunnel-Reminder": "true",
+      },
+    });
     if (response.ok) {
       return response.data;
     }
   } catch (error) {
+    throw error;
+  }
+};
+
+// fetch employee details
+export const fetchEmployeeProfile = async () => {
+  try {
+    const response = await axios.get(
+      `${employeeUrl}/fetchEmployeeProfile`,
+      globalToken(),
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// uploade image api
+
+export const uploadImageApi = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await axios.post(
+      `${employeeUrl}/uploadEmployeeImage`,
+      formData,
+      {
+        headers: {
+          ...globalToken().headers, //
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//  --- fetch all employee ---
+
+export const fetchAllEmployeeDetailsApi = async () => {
+  try {
+    const response = await axios.get(
+      `${employeeUrl}/fetchEmployee`,
+      globalToken(),
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Api error :", error);
+
+    throw error;
+  }
+};
+
+//  --- delete employee by id ---
+
+export const deleteEmployeeDetailsApi = async (id) => {
+  try {
+    const response = await axios.delete(
+      `${employeeUrl}/deleteEmployeeById/${id}`,
+      globalToken(),
+    );
+    return response.data;
+  } catch (error) {
+    console.log("System error : ", error);
+
+    throw error;
+  }
+};
+
+//  --- role accesss ---
+
+export const updateRoleApi = async (id, roleData) => {
+  try {
+    const response = await axios.patch(
+      `${employeeUrl}/updateEmployeeToAdmin/${id}`,
+      null,
+      {
+        ...globalToken(),
+        params: {
+          role: roleData,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Api error :", error);
     throw error;
   }
 };

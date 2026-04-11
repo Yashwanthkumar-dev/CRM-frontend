@@ -81,6 +81,7 @@ function Navigation() {
               lead
             </NavLink>
             
+            <NavLink to="Employees" className={navLinkClass}>employee</NavLink>
             
           </ul>
 
