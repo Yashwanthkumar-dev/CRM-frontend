@@ -1,7 +1,7 @@
 import axios from "axios";
 import { param } from "framer-motion/client";
 
-const BASE_URL = " https://yash-crm-backend.loca.lt";
+const BASE_URL = "https://yash-crm-backend.loca.lt";
 const dashboardUrl = `${BASE_URL}/dashboardStatus`;
 const customerUrl = `${BASE_URL}/customer`;
 const leadUrl = `${BASE_URL}/lead`;
