@@ -7,6 +7,8 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 function Navigation() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   if (location.pathname.startsWith("/admin")) {
     return null;
   }
@@ -37,7 +39,6 @@ function Navigation() {
       await createLead(data);
       toast.success("Lead added successfully");
 
-     
       setData({
         name: "",
         email: "",
@@ -49,7 +50,6 @@ function Navigation() {
       });
       setOpen(false);
 
-    
       window.dispatchEvent(new Event("leadAdded"));
     } catch (error) {
       toast.error("Process Failed! please try again");
@@ -57,7 +57,6 @@ function Navigation() {
     }
   };
 
-  const navigate = useNavigate();
   return (
     <>
       <div className="bg-white py-2 shadow-md">
@@ -75,16 +74,12 @@ function Navigation() {
               </button>
             </div>
 
-            {/* <div>
-              <h1 onClick={()=> navigate("/employee-activities")} className="text-primary font-inter border border-primary capitalize hover:bg-primary hover:text-white hover:border-transparent cursor-pointer px-4 py-1 duration-300 transition-colors rounded-lg font-semibold">Activities</h1>
-            </div>
-          </div> */}
-
-          <NavLink to="/employee-profile">
-            <div className="mr-10 p-4 bg-gray-900/10 rounded-md cursor-pointer">
-              <UserCog size={23} className="text-primary" />
-            </div>
-          </NavLink>
+            <NavLink to="/employee-profile">
+              <div className="mr-10 p-4 bg-gray-900/10 rounded-md cursor-pointer">
+                <UserCog size={23} className="text-primary" />
+              </div>
+            </NavLink>
+          </div>
         </div>
 
         {/* --- Add Lead Modal --- */}
@@ -161,7 +156,7 @@ function Navigation() {
                   />
                 </div>
 
-                {/* Source - Managed as Select for better UX */}
+                {/* Source */}
                 <div className="flex flex-col gap-1">
                   <label className="text-gray-500 font-inter text-sm font-semibold capitalize">
                     Source
