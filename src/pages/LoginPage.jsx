@@ -99,11 +99,11 @@ function LoginPage() {
             </NavLink>
           </div>
 
-          <div className="mt-5">
+          {/* <div className="mt-5">
             <h5 className="text-gray-600/80 text-center">
               ------------------ or ----------------
             </h5>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

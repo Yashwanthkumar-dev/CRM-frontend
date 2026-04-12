@@ -137,11 +137,11 @@ function SignInPage() {
             </p>
           </div>
 
-          <div>
+          {/* <div>
             <p className="text-center text-gray-600/80 font-inter my-5">
               -------- or --------
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
