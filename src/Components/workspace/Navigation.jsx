@@ -74,12 +74,12 @@ function Navigation() {
               </button>
             </div>
 
-            <NavLink to="/employee-profile">
+          
+          </div>  <NavLink to="/employee-profile">
               <div className="mr-10 p-4 bg-gray-900/10 rounded-md cursor-pointer">
                 <UserCog size={23} className="text-primary" />
               </div>
             </NavLink>
-          </div>
         </div>
 
         {/* --- Add Lead Modal --- */}
