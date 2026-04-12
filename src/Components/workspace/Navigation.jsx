@@ -65,7 +65,7 @@ function Navigation() {
           <div className="flex items-center gap-1">
             <img src={icon} alt="company-logo" className="w-32" />
             <h1 className="text-2xl font-inter font-semibold -ml-10 -mt-4">
-              pipeline<span className="text-primary">CRM</span>
+              smart<span className="text-primary">CRM</span>
             </h1>
           </div>
           <div className="flex items-center gap-7">
@@ -75,10 +75,10 @@ function Navigation() {
               </button>
             </div>
 
-            <div>
+            {/* <div>
               <h1 onClick={()=> navigate("/employee-activities")} className="text-primary font-inter border border-primary capitalize hover:bg-primary hover:text-white hover:border-transparent cursor-pointer px-4 py-1 duration-300 transition-colors rounded-lg font-semibold">Activities</h1>
             </div>
-          </div>
+          </div> */}
 
           <NavLink to="/employee-profile">
             <div className="mr-10 p-4 bg-gray-900/10 rounded-md cursor-pointer">
