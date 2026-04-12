@@ -159,8 +159,12 @@ function Homepage() {
   };
 
   // --5. what app connection ---
-  const WhatAppHandler = (number) => {
-    const whatAppUrl = `https://api.whatsapp.com/send?phone=${number}`;
+  const WhatAppHandler = (phone) => {
+    if (!phone) {
+      return toast.error("phone number was not available !");
+    }
+
+    const whatAppUrl = `https://api.whatsapp.com/send?phone=${phone}`;
     window.open(whatAppUrl, "_blank");
   };
 
@@ -379,7 +383,7 @@ function Homepage() {
                         </button>
                       </td>
                       <td className="flex flex-col   items-center  p-5 gap-2 ">
-                        <i onClick={() => WhatAppHandler(data.number)}>
+                        <i onClick={() => WhatAppHandler(data.phone)}>
                           <FaWhatsapp
                             size={20}
                             className=" w-full text-green-600"
