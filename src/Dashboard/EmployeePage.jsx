@@ -9,7 +9,7 @@ import { Loader2, PenIcon, Trash2 } from "lucide-react";
 
 function EmployeePage() {
   const [employeeList, setEmployeeList] = useState([]);
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("EMPLOYEE");
   const [openBox, setOpenBox] = useState(false);
   const [selectId, setSelectId] = useState();
   // All handler
